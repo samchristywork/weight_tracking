@@ -1,0 +1,22 @@
+#!/bin/bash
+
+filename="$HOME/.weight"
+
+if [ ! -f "$filename" ]; then
+  touch "$filename"
+fi
+
+function usage() {
+  echo "Usage: $0 <command>"
+  echo "Commands:"
+}
+
+case "$1" in
+  help)
+    usage
+    ;;
+  *)
+    echo "Unknown command: $1"
+    exit 1
+    ;;
+esac
