@@ -10,6 +10,7 @@ function usage() {
   echo "Usage: $0 <command>"
   echo "Commands:"
   echo "  add <weight> - Add a new weight"
+  echo "  edit - edit weight file"
   echo "  help - show this help"
 }
 
@@ -23,6 +24,9 @@ case "$1" in
     fi
 
     echo "$(date +"%Y-%m-%d %H:%M:%S")	$(date +%s)	$weight" >> "$filename"
+    ;;
+  edit)
+    "$EDITOR" "$filename"
     ;;
   help)
     usage
