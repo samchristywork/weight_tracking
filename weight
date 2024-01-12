@@ -30,6 +30,7 @@ case "$1" in
     fi
 
     echo "$(date +"%Y-%m-%d %H:%M:%S")	$(date +%s)	$weight" >> "$filename"
+    tail -n 5 "$filename"
     ;;
   graph)
     tail -n 30 "$filename" > /tmp/weight.txt
