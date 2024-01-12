@@ -9,9 +9,21 @@ fi
 function usage() {
   echo "Usage: $0 <command>"
   echo "Commands:"
+  echo "  add <weight> - Add a new weight"
+  echo "  help - show this help"
 }
 
 case "$1" in
+  add)
+    if [ $# -eq 1 ]; then
+      echo "Enter weight:"
+      read -r weight
+    else
+      weight="$2"
+    fi
+
+    echo "$(date +"%Y-%m-%d %H:%M:%S")	$(date +%s)	$weight" >> "$filename"
+    ;;
   help)
     usage
     ;;
