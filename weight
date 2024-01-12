@@ -10,6 +10,7 @@ function usage() {
   echo "Usage: $0 <command>"
   echo "Commands:"
   echo "  add <weight> - Add a new weight"
+  echo "  graph - show graph"
   echo "  edit - edit weight file"
   echo "  help - show this help"
 }
@@ -29,6 +30,31 @@ case "$1" in
     fi
 
     echo "$(date +"%Y-%m-%d %H:%M:%S")	$(date +%s)	$weight" >> "$filename"
+    ;;
+  graph)
+    tail -n 30 "$filename" > /tmp/weight.txt
+    gnuplot << EOF
+set terminal png size 1024,768 enhanced font 'Verdana,20'
+set output '/tmp/weight_graph.png'
+
+set datafile separator "\t"
+
+# Title and labels
+set title "Weight Over Time"
+set xlabel "Date"
+set ylabel "Weight (lbs)"
+set grid
+set xdata time
+set timefmt "%Y-%m-%d %H:%M:%S"
+set format x "%Y-%m-%d"
+set xtics rotate by -20
+
+plot '/tmp/weight.txt' \
+    using 1:3 title 'Weight' with lines linewidth 2
+
+unset output
+EOF
+    firefox /tmp/weight_graph.png
     ;;
   edit)
     "$EDITOR" "$filename"
