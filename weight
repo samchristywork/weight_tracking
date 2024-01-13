@@ -12,9 +12,10 @@ function usage() {
   echo "Usage: $0 <command>"
   echo "Commands:"
   echo "  add <weight> - Add a new weight"
-  echo "  graph - show graph"
-  echo "  edit - edit weight file"
-  echo "  help - show this help"
+  echo "  goal - Edit goal weight"
+  echo "  graph - Show graph"
+  echo "  edit - Edit weight file"
+  echo "  help - Show this help"
 }
 
 if [ $# -eq 0 ]; then
@@ -33,6 +34,9 @@ case "$1" in
 
     echo "$(date +"%Y-%m-%d %H:%M:%S")	$(date +%s)	$weight" >> "$filename"
     tail -n 5 "$filename"
+    ;;
+  goal)
+    "$EDITOR" ~/.weight_goal
     ;;
   graph)
     tail -n 30 "$filename" > /tmp/weight.txt
