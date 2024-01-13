@@ -53,8 +53,11 @@ set timefmt "%Y-%m-%d %H:%M:%S"
 set format x "%Y-%m-%d"
 set xtics rotate by -20
 
+goal(x) = $target_weight
+
 plot '/tmp/weight.txt' \
-    using 1:3 title 'Weight' with lines linewidth 2
+    using 1:3 title 'Weight' with lines linewidth 2, \
+    '/tmp/weight.txt' using 1:(goal(\$2)) title 'Goal' with lines linewidth 2
 
 unset output
 EOF
