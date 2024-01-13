@@ -35,8 +35,8 @@ case "$1" in
   graph)
     tail -n 30 "$filename" > /tmp/weight.txt
     gnuplot << EOF
-set terminal png size 1024,768 enhanced font 'Verdana,20'
-set output '/tmp/weight_graph.png'
+set terminal svg size 1024,768 enhanced font 'Verdana,20'
+set output '/tmp/weight_graph.svg'
 
 set datafile separator "\t"
 
@@ -55,7 +55,7 @@ plot '/tmp/weight.txt' \
 
 unset output
 EOF
-    firefox /tmp/weight_graph.png
+    firefox /tmp/weight_graph.svg
     ;;
   edit)
     "$EDITOR" "$filename"
