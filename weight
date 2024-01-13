@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source /home/sam/.weight_goal
+
 filename="$HOME/.weight"
 
 if [ ! -f "$filename" ]; then
@@ -34,6 +36,7 @@ case "$1" in
     ;;
   graph)
     tail -n 30 "$filename" > /tmp/weight.txt
+    goal_epoch=$(date -d "$goal_date" +%s)
     gnuplot << EOF
 set terminal svg size 1024,768 enhanced font 'Verdana,20'
 set output '/tmp/weight_graph.svg'
