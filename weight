@@ -35,6 +35,16 @@ case "$1" in
     echo "$(date +"%Y-%m-%d %H:%M:%S")	$(date +%s)	$weight" >> "$filename"
     tail -n 5 "$filename"
     ;;
+  status)
+    goal_epoch=$(date -d "$goal_date" +%s)
+    rate=$goal_rate
+    start=$goal_epoch
+    x=$(date +%s)
+    current_weight=$(tail -n 1 "$filename" | cut -f 3)
+    ahead=$(echo "$goal_start + ($x - $start) / 86400.0 * ( $rate ) - $current_weight" | bc)
+
+    echo "$ahead lbs ahead of schedule"
+    ;;
   goal)
     "$EDITOR" ~/.weight_goal
     ;;
